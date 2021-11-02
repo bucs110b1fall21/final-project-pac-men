@@ -1,8 +1,12 @@
 #import your controller
 
+import pygame
+
 def main():
-    #Create an instance on your controller object
-    #Call your mainloop
-    
-    ###### NOTHING ELSE SHOULD GO IN main(), JUST THE ABOVE 2 LINES OF CODE ######
+    pygame.init()
+    team = {"lead": "Jason Lin", "backend": "Nicholas Tavormina", "frontend": "Axin Li"}
+    print("Software Lead is:", team["lead"])
+    print("Backend is:", team["backend"])
+    print("Frontend is:" , team["frontend"])
 main()
+
