@@ -1,8 +1,14 @@
+import pygame
+from pacmanclass import *
+from enemyclass import *
+from config import *
 
 class Controller:
   
   def __init__(self):
     #setup pygame data
+    self.player = Player(PLAYER_START_POSITION)
+    vec = pygame.math.Vector2
     
   def mainloop(self):
     #select state loop
