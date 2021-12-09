@@ -9,6 +9,7 @@ from src import config
 class Controller:
   
   def __init__(self):
+    #initializes pac man, the enemies, the background, the loading function, and attempts to instatizte the player and ghost objects
     pacman = player.Pacman
     ghosts = enemies.Ghosts
     self.state = "In-Game"
@@ -24,6 +25,7 @@ class Controller:
     #self.spawnEnemy()
 
   def loading(self):
+    #initializes a few idexes for the list of ghosts, walls and coins. also (attempts) to process the walls on the map
     self.box_width = 600//30
     self.box_height = 700//28
     self.boundaries = []
@@ -37,6 +39,7 @@ class Controller:
                     
 
   def mainloop(self):
+    #sets up the three different game states. currently stuck on the first menu for some reason
     while self.running == True:
       if self.state == "Initialization":
         self.menuEvents()
@@ -51,6 +54,7 @@ class Controller:
         self.running = False
 
   def menuEvents(self):
+    #main menu event 
     for event in pygame.event.get():
       if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
         self.state == "In-Game"
@@ -58,11 +62,13 @@ class Controller:
         print(self.state)
 
   def menuDraw(self):
+    #push space bar drawing
         self.type('PUSH SPACE BAR', self.screen, [
             800//2, 600//2-50], 15, (170, 132, 58), "arial black", centered=True)
         pygame.display.update()
 
   def type(self, characters, screen, pos, size, color, font_name, centered=True):
+    #pygame typing function
         font = pygame.font.SysFont(font_name, size)
         text = font.render(characters, False, color)
         text_size = text.get_size()
@@ -73,6 +79,7 @@ class Controller:
     #  self.ghosts.append(enemies(self, vec(-1,0), identity))
 
   def gameEvents(self):
+    #movement of pacman
     for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
@@ -85,11 +92,13 @@ class Controller:
                     self.pacman.move(vec(0, 1))
   
   def gameUpdate(self):
+    #updates pacmans movements and begins to layout how the ghosts update
     self.pacman.update()
     for i in range(4):
       self.ghosts.update()
 
   def gameDraw(self):
+    #draws pacma and the game screen
     self.screen.fill((0, 0, 0))
     self.screen.blit(self.background, (25, 25))
     self.pacman.draw()
@@ -98,6 +107,7 @@ class Controller:
     pygame.display.update()
 
   def loseCondition(self):
+    #beginning of play lives function to game over state
     if self.player.lives == 0:
       self.state == "Game-Over"
     

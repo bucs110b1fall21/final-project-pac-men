@@ -18,7 +18,7 @@ class Ghosts:
         pygame.draw.circle(self.controller.screen, (75, 50, 84), int(self.pixel_position.x), int(self.pixel_position.y), 8)
 
     def update(self):
-        self.pixel_position + self.direction
+        self.pixel_position += self.direction
     #    if self.Centered():
         self.randomMovement()
 
