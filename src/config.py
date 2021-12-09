@@ -1,10 +1,14 @@
-from pygame.math import Vector2 as vec
 
 #Player Settings
-PLAYER_START_POSITION = vec(1,1)
-
+PACMAN_COLOR = (190, 194, 15)
+WIDTH = 30
 #Highscore
 
 #Enemy Settings
 
 #Screen Settings
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+NUMBER_ROWS = 30
+NUMBER_COLOUMS = 28
+FPS = 60

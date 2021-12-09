@@ -1,11 +1,11 @@
-from controller import *
+import sys
 import pygame
+from control import *
 
 def main():
-    pygame.init()
-    team = {"lead": "Jason Lin", "backend": "Nicholas Tavormina", "frontend": "Axin Li"}
-    print("Software Lead is:", team["lead"])
-    print("Backend is:", team["backend"])
-    print("Frontend is:" , team["frontend"])
+    game = Controller()
+    game.mainloop()
+
 main()
 
+    
