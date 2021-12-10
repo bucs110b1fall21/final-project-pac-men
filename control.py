@@ -1,6 +1,5 @@
 import pygame
 import sys
-import copy
 from pygame.math import Vector2 as vec
 from src import player
 from src import enemies
@@ -19,16 +18,14 @@ class Controller:
         pygame.init()
         self.background = pygame.image.load('maze.png')
         self.loading()
-        self.pacmanposition = vec(20, 25)
+        self.pacmanposition = vec(21, 4)
         self.ghostpositions = []
         self.pacman = pacman(self, self.pacmanposition)
-        self.ghosts = ghosts(self, vec(1, 1), 1)
-        # self.spawnEnemy()
 
     def loading(self):
         # initializes a few idexes for the list of ghosts, walls and coins. also (attempts) to process the walls on the map
-        self.box_width = 600 // 30
-        self.box_height = 700 // 28
+        self.box_width = 600//30
+        self.box_height = 700//28
         self.boundaries = []
         self.coins = []
         self.ghosts = []
@@ -48,10 +45,6 @@ class Controller:
         for i in range(config.SCREEN_HEIGHT // self.box_height):
             pygame.draw.line(self.background, config.BLACK, (0, i * self.box_height),
                              (config.SCREEN_WIDTH, i * self.box_height))
-
-    # resets game when lost
-    # def reset(self):
-        # self.pacman.lives = 1
 
 
     def mainloop(self):
@@ -91,10 +84,6 @@ class Controller:
         text_size = text.get_size()
         screen.blit(text, pos)
 
-    # def spawnEnemy(self):
-    # for identity in range(4):
-    # self.ghosts.append(Enemies(self, vec(-1,0), identity))
-
     def gameEvents(self):
         # movement of pacman
         for event in pygame.event.get():
@@ -111,20 +100,13 @@ class Controller:
     def gameUpdate(self):
         # updates pacmans movements and begins to layout how the ghosts update
         self.pacman.update()
-        for i in range(4):
-            self.ghosts.update()
-        # checks if pacmans position is the same as the enemys', if so, pacman loses a life
-        # for i in range(4):
-        # if self.ghostpositions == self.pacmanposition:
-        # self.                          # pacman losing life
+
 
     def gameDraw(self):
         # draws pacman and the game screen
         self.screen.fill((0, 0, 0))
         self.screen.blit(self.background, (25, 25))
         self.pacman.draw()
-        for i in range(4):
-            self.ghosts.draw()
         pygame.display.update()
 
     def loseCondition(self):
@@ -140,9 +122,5 @@ class Controller:
                 self.reset()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESPACE:
                 self.ruunning = False
-    # event loop
 
-    # update data
-
-    # redraw"
 
