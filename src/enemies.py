@@ -1,6 +1,6 @@
 import pygame
 import random
-#import config
+from .config import *
 from pygame.math import Vector2 as vec
 
 
@@ -18,12 +18,13 @@ class Ghosts:
         self.direction = vec(0,0)
         self.color = self.setColor()
         self.identity = identity
+        self.speed = SPEED
     
     def draw(self):
         """
         Method that draws an enemy on the screen with a designated color, specified pixel position, and width.
         """
-        pygame.draw.circle(self.controller.screen, self.color, (int(self.pixel_position.x), int(self.pixel_position.y)), 8)
+        pygame.draw.circle(self.controller.screen, self.color, (int(self.pixel_position.x), int(self.pixel_position.y)), WIDTH)
 
     def update(self):
         """

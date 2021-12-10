@@ -1,5 +1,5 @@
 import pygame
-#import config
+from .config import *
 from pygame.math import Vector2 as vec
 
 class Pacman:
@@ -19,22 +19,19 @@ class Pacman:
         self.direction = vec(1,0)
         #self.queued_direction = None
         self.lives = 1
-        print(self.coordinates)
-        print(self.pixel_position)
 
     def draw(self):
         """
         Method that draws pacman on the screen with a yellow color, specified pixel position, and width.
         """
-        pygame.draw.circle(self.Controller.screen, (190, 194, 15), (int(self.pixel_position.x), int(self.pixel_position.y)), 8)
+        pygame.draw.circle(self.Controller.screen, PACMAN_COLOR, (int(self.pixel_position.x), int(self.pixel_position.y)), WIDTH)
 
     def update(self):
         """
         Update method. Handles all the movement operations for pacman. Also sets the relationship between a grid positioning system and pixel positioning system. Also eats a coin
         """
-        if self.centered and self.noCollision:
-            self.pixel_position += self.direction
-
+        if self.noCollision:
+            self.pixel_position += self.direction*SPEED
         if self.coin():
             self.eat()
 
@@ -76,10 +73,13 @@ class Pacman:
         Method that checks for collison by comparing the player's grid position to the boundry position from boundaries.txt
         return: (boolean) True/False statement. False if there is a collision, true if there isn't one.
         """
+        print(self.boundaries)
         for boundaries in self.Controller.boundaries:
             if vec(self.coordinates+self.direction) == boundaries:
+                print("False")
                 return False
         return True
+        print("True")
 
     def centered(self):
         """

@@ -1,5 +1,3 @@
-import sys
-import pygame
 from control import *
 
 def main():

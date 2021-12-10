@@ -18,11 +18,9 @@ class Controller:
         pygame.init()
         self.background = pygame.image.load('maze.png')
         self.loading()
-        self.pacmanposition = vec(20, 25)
+        self.pacmanposition = vec(21, 4)
         self.ghostpositions = []
         self.pacman = pacman(self, self.pacmanposition)
-        print(self.boundaries)
-        print(self.coins)
 
     def loading(self):
         # initializes a few idexes for the list of ghosts, walls and coins. also (attempts) to process the walls on the map
