@@ -1,98 +1,144 @@
 import pygame
 import sys
-from pacmanclass import *
-from enemyclass import *
-from config import *
+from pygame.math import Vector2 as vec
+from src import player
+from src import enemies
+from src import config
 
 
 class Controller:
 
     def __init__(self):
-        # setup pygame data
-        self.window_width = 900
-        self.window_height = 600
-        self.state = 'GAME'
-        vec = pygame.math.Vector2
-        self.screen = pygame.display.set_mode((self.window_width, self.window_height))
-        self.background = pygame.Surface((self.window_width, self.window_height))
-        self.background.fill((250, 250, 250))
+        ''' Initializes the game the sprites Pacman and the Ghosts. Sets the default value of
+         background as 600x700 and displays the maze.png. Also Pacman will always be in a moving state until the game ends
+         with self.running. '''
+        pacman = player.Pacman
+        ghosts = enemies.Ghosts
+        self.state = "In-Game"
+        self.screen = pygame.display.set_mode((600, 700))
+        self.running = True
+        pygame.init()
+        self.background = pygame.image.load('maze.png')
+        self.loading()
+        self.pacmanposition = vec(21, 4)
+        self.enemies = []
+        self.ghostpositions = []
+        self.pacman = pacman(self, self.pacmanposition)
 
-        # configure pygame
+    def loading(self):
+        '''Opens the boundaries.txt file and creates the walls list with coordinates
+        of the walls by storing it as a vector. Also makes the box_width and box_height
+        for when a grid is made.'''
+        self.box_width = 600 // 30
+        self.box_height = 700 // 28
+        self.walls = []
+        self.coins = []
+        self.ghosts = []
+        self.boundaries = []
+        with open("boundaries.txt", 'r') as file:
+            for yidx, line in enumerate(file):
+                for xidx, char in enumerate(line):
+                    if char == "1":
+                        self.walls.append(vec(xidx, yidx))
+                    elif char == "C":
+                        self.coins.append(vec(xidx, yidx))
 
-        # held keys are repeated
-        pygame.key.set_repeat(50, 500)
+    def make_Ghosts(self):
+        for idx, pos in enumerate(self.ghostpositions):
+            self.enemies.append(enemies.Ghosts(self, vec(pos), idx))
 
-        # call font to use
-        pygame.font.init()
+    def drawMaze(self):
+        ''' Creates the maze or grid using the box_width and box_height.'''
+        for i in range(config.SCREEN_WIDTH // self.box_width):
+            pygame.draw.line(self.background, config.BLACK, (i * self.box_width, 0),
+                             (i * self.box_width, config.SCREEN_HEIGHT))
+        for i in range(config.SCREEN_HEIGHT // self.box_height):
+            pygame.draw.line(self.background, config.BLACK, (0, i * self.box_height),
+                             (config.SCREEN_WIDTH, i * self.box_height))
 
-        self.player = Player(PLAYER_START_POSITION)
-        self.enemies = pygame.sprite.Group()
-        self.all_sprites = pygame.sprite.Group(tuple(self.enemies) + (self.player,))
+    def reset(self):
+        '''Resets the game once Pacman touches a Ghost.'''
+        self.pacman.lives = 1
+        self.pacman.coordinates = vec(self.pacman.starting_pos)
+        self.pacman.pixel_position = self.pacman.getPosition()
 
     def mainloop(self):
-        # check for events
-        while True:
-            if (self.state == 'GAME'):
-                self.gameloop()
-            elif (self.state == 'GAMEOVER'):
+        '''Sets up the three game states, menu, playing the game, and the end screen. Currently
+        the game is stuck on the In-Game state. '''
+        while self.running == True:
+            if self.state == "Initialization":
+                self.menuEvents()
+                self.menuDraw()
+                self.drawMaze()
+            elif self.state == "In-Game":
+                self.gameEvents()
+                self.gameUpdate()
+                self.gameDraw()
+            elif self.state == "Game-Over":
                 self.gameoverloop()
+            else:
+                self.running = False
+        pygame.quit()
+        sys.exit()
 
-    # select state loop
+    def menuEvents(self):
+        ''' The main menu screen and pressing space starts the game.'''
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                self.state = "In-Game"
+                print("space")
+                print(self.state)
 
-    ### below are some sample loop states ###
+    def menuDraw(self):
+        ''' Creates text that says "PUSH SPACE BAR" in the center of the screen.'''
+        self.type('PUSH SPACE BAR', self.screen, [
+            800 // 2, 600 // 2 - 50], 15, (170, 132, 58), "arial black", centered=True)
+        pygame.display.update()
 
-    def menuloop(self):
+    def type(self, characters, screen, pos, size, color, font_name, centered=True):
+        '''Method used for the pygame.type function'''
+        font = pygame.font.SysFont(font_name, size)
+        text = font.render(characters, False, color)
+        text_size = text.get_size()
+        screen.blit(text, pos)
 
-    # event loop
+    def gameEvents(self):
+        '''Creates the movement of Pacman with arrow keys'''
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.pacman.move(vec(1, 0))
+                if event.key == pygame.K_UP:
+                    self.pacman.move(vec(0, -1))
+                if event.key == pygame.K_LEFT:
+                    self.pacman.move(vec(-1, 0))
+                if event.key == pygame.K_DOWN:
+                    self.pacman.move(vec(0, 1))
 
-    # update data
+    def gameUpdate(self):
+        '''Updates the movement of Pacman'''
+        self.pacman.update()
 
-    # redraw
+    def gameDraw(self):
+        '''Draws Pacman and the game screen'''
+        self.screen.fill((0, 0, 0))
+        self.screen.blit(self.background, (25, 25))
+        self.pacman.draw()
+        pygame.display.update()
 
-    # update the screen
+    def loseCondition(self):
+        '''Initializes the Game-Over state of the game.'''
+        if self.pacman.lives == 0:
+            self.state = "Game-Over"
 
-    def gameloop(self):
-        # event loop
-        while self.state == 'GAME':
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if (event.key == pygame.K_UP):
-                        self.player.move("U")
-                    elif (event.key == pygame.K_DOWN):
-                        self.player.move("D")
-                    elif (event.key == pygame.K_LEFT):
-                        self.player.move("L")
-                    elif (event.key == pygame.K_RIGHT):
-                        self.player.move("R")
-        # update data
-
-        # check for collisions
-
-        # redraw
-        self.enemies.update()
-        self.screen.blit(self.background, (0, 0))
-        if (self.player.health == 0):
-            self.state = 'GAMEOVER'
-        self.all_sprites.draw(self.screen)
-        # update the screen
-        pygame.display.flip()
-
-
-def gameoverloop(self):
-    self.player.kill()
-    # event loop
-    myfont = pygame.font.SysFont(None, 30)
-    # update data
-    if self.player.health == 0:
-        self.background.fill((250, 0, 0))
-        message = myfont.render('Game Over', False, (0, 0, 0))
-    else:
-        self.background.fill((0, 250, 0))
-        message = myfont.render('You Win', False, (0, 0, 0))
-    self.screen.blit(self.background, (0, 0))
-    self.screen.blit(message, (self.window_width / 2, self.window_height / 2))
-
-    # redraw
-    pygame.display.flip()
+    def gameoverloop(self):
+        '''Game over state oef the game'''
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                self.reset()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESPACE:
+                self.running = False
