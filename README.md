@@ -2,15 +2,15 @@
 # CS110 Project Proposal
 # << Project Title >>
 ## CS 110 Final Project
-### << Semester, Year >>
+### << 1, 2021 >>
 ### [Assignment Description](https://docs.google.com/document/d/1H4R6yLL7som1lglyXWZ04RvTp_RvRFCCBn6sqv-82ps/edit#)
 
-<< [https://github.com/<repo>](#) >>
+<< [https://github.com/bucs110b1fall21/final-project-pac-men](#) >>
 
 << [link to demo presentation slides](#) >>
 
-### Team: << team name >>
-#### << Team Members >>
+### Team: << Pac-Men >>
+#### << Jason Lin, Axin Li, Nicholas Tavormina >>
 
 ***
 
@@ -27,17 +27,26 @@
 ***        
 
 ## Program Design *(Backend Specialist)*
-* Non-Standard libraries
-    * << You should have a list of any additional libraries or modules used (pygame, request) beyond non-standard python. >>
-    * For each additional module you should include
-        * url for the module documentation
-        * a short description of the module
+* Non-Standard libraries 
+    Pygame: https://www.pygame.org/docs/
+    Set of modules to write, design, and display games within python. Backnbone of most of this project
+
+    Pygame.math: https://www.pygame.org/docs/ref/math.html
+    Pygame math is a vector module for pygame classes. I use in it this project in order to create position vectors (grid based and pixel based) for the ghosts and pacman.
+
+    Sys: https://docs.python.org/3/library/sys.html
+    Library of variuous functions and functions to use in python. Used only in this project to determine the font of the game text.
+
+    Random: https://docs.python.org/3/library/random.html
+    Library of pseudo-random number generators. Used for random Enemy Movement
+
 * Class Interface Design
-    * << A simple drawing that shows the class relationships in your code (see below for an example). >>
+    * Class Diagram
         * ![class diagram](assets/class_diagram.jpg)
-    * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
+        
 * Classes
-    * << You should have a list of each of your classes with a description. >>
+    Ghosts: Handles the ghosts (pacman enemies). Contains methods to derive a random movement pattern, draw themselves, move (change direction), set color, check for collision, centers the movement on a gridpath, and handles the interchange of a grid positioning system (coordinates) and pixel positioning system on the screen.
+    Pacman: Handles the player (pacman himself). Contains methods to move (change direction), draw pacman, check collision, centers the movement on a gridpath, handles the checking for and eating of coins, and handles the interchange of a grid positioning system (coordinates) and pixel positioning system on the screen.
 
 ## Project Structure *(Software Lead)*
 
