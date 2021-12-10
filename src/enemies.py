@@ -15,7 +15,7 @@ class Ghosts:
         self.identity = identity
     
     def draw(self):
-        pygame.draw.circle(self.controller.screen, (75, 50, 84), int(self.pixel_position.x), int(self.pixel_position.y), 8)
+        pygame.draw.circle(self.controller.screen, (75, 50, 84), (int(self.pixel_position.x), int(self.pixel_position.y)), 8)
 
     def update(self):
         self.pixel_position += self.direction

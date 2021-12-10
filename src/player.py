@@ -4,9 +4,8 @@ from pygame.math import Vector2 as vec
 
 class Pacman:
 
-    def __init__(self, controller, coordinates):
-        self.controller = controller
-        #self.starting_position = [coordinates.x, coordinates.y]
+    def __init__(self, Controller, coordinates):
+        self.Controller = Controller
         self.coordinates = coordinates
         self.pixel_position = self.get_position()
         self.freetoMove = True
