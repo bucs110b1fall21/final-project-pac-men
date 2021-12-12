@@ -26,16 +26,10 @@ class Ghosts:
 
     def update(self):
         """
-        Handles movement updates. Checks 
+        Handles movement updates.
         """
-        self.coordinates.x = (self.pixel_position.x - EMPTY_SPACE +
-                            self.controller.maze_width//2)//self.controller.maze_width+1
-        self.coordinates.y = (self.pixel_position.y - EMPTY_SPACE +
-                            self.controller.maze_height//2)//self.controller.maze_height+1
-
-        self.coordinates += self.direction
+        self.coordinates += self.direction*self.speed
         self.randomMovement()
-
 
     def randomMovement(self):
         """
@@ -45,7 +39,7 @@ class Ghosts:
 
     def randomDirection(self):
         """
-        Randomly generates direction. Queues a position with a generated random direction and checks for collision with a boundry.
+        Randomly generates direction. Queues a position with a generated random direction.
         return (int) Vector directional value, using (xdirection, ydirection)
         """
         number = random.randint(0, 3)

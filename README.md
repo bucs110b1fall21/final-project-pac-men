@@ -5,25 +5,21 @@
 ### << November 28, 2021 >>
 ### [Assignment Description](https://docs.google.com/document/d/1H4R6yLL7som1lglyXWZ04RvTp_RvRFCCBn6sqv-82ps/edit#)
 
-<< [https://github.com/bucs110b1fall21/final-project-pac-men](#) >>
+ [https://github.com/bucs110b1fall21/final-project-pac-men](#)
 
 << [link to demo presentation slides](#) >>
 
-### Team: << Pac-Men >>
-#### << Jason Lin, Axin Li, Nicholas Tavormina >>
+### Team: Pac-Men
+#### Jason Lin, Axin Li, Nicholas Tavormina
 
 ***
 
 ## Project Description *(Software Lead)*
-<< Our project is a recreation of pacman. Pacman is a game where there is a character, pacman and his goal is to eat all the pellets before the ghost catches him.>>
+Our project is a recreation of the game Pac-Man. Pacman is a game where there is a character, pacman and his goal is to eat all the coins before the ghost catches him.
 
 ***    
 
 ## User Interface Design *(Front End Specialist)*
-* << A wireframe or drawing of the user interface concept along with a short description of the interface. You should have one for each screen in your program. >>
-    * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
-* << You should also have a screenshot of each screen for your final GUI >>
-
 * Start Screen
   * ![start_screen](assets/start_screen.png)
   * This is the start screen of the Pacman game. It displays the text, "PUSH SPACE BAR" which instructs the user to press space to transition to the game screen and begin the game. 
@@ -53,14 +49,15 @@
         * ![class diagram](assets/class_diagram.jpg)
         
 * Classes
-    Ghosts: Handles the ghosts (pacman enemies). Contains methods to derive a random movement pattern, draw themselves, move (change direction), set color, check for collision, centers the movement on a gridpath, and handles the interchange of a grid positioning system (coordinates) and pixel positioning system on the screen.
-    Pacman: Handles the player (pacman himself). Contains methods to move (change direction), draw pacman, check collision, centers the movement on a gridpath, handles the checking for and eating of coins, and handles the interchange of a grid positioning system (coordinates) and pixel positioning system on the screen.
+    Ghosts: Handles the ghosts (pacman enemies). Contains methods to derive a random movement pattern, draw themselves, move (change direction), set color, check for collision, and handles the interchange of a grid positioning system (coordinates) and pixel positioning system on the screen.
+    
+    Pacman: Handles the player (pacman himself). Contains methods to move (change direction), draw pacman, check collision, handles the checking for and eating of coins, and handles the interchange of a grid positioning system (coordinates) and pixel positioning system on the screen.
 
 ## Project Structure *(Software Lead)*
 
 The Project is broken down into the following file structure:
 * main.py
-* bin
+* src
     * <all of your python files should go here>
 * assets
     * <all of your media, i.e. images, font files, etc, should go here)
@@ -74,19 +71,19 @@ The Project is broken down into the following file structure:
 
 ### Software Lead - << Jason Lin >>
 
-<< Worked as integration specialist by developing statrategic procedures and upgrades. >>
+Worked as integration specialist by developing statrategic procedures and upgrades.
 
 ### Front End Specialist - << Axin Li >>
 
-<< Front-end lead conducted significant research on how to make sure the presentation of the project looked nice. >>
+The Front End specialist developed the User interface and presentation of the project, and integreated event handling with the back-end's models.
 
 ### Back End Specialist - << Nicholas Tavormina >>
 
-<< The back end specialist made sure that the code was compressed and followed our project description. >>
+The Back End Specialist developed the models used within the game and integrated them within the controller.
 
 ## Testing *(Software Lead)*
-* << One testing strategy we used was to run the code, and whereever theres an error, we would go from there>>
-    * << TypeError on line 12. We would go to line 12 and try to fix the error. >>
+*  One testing strategy we used was to run the code, and whereever theres an error, we would go from there
+    *  TypeError on line 12. We would go to line 12 and try to fix the error. 
 
 * Your ATP
 
