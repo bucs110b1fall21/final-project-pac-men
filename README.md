@@ -24,7 +24,12 @@
     * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
 * << You should also have a screenshot of each screen for your final GUI >>
 
-***        
+* Start Screen
+  * ![start_screen](assets/start_screen.png)
+    * Game Screen
+      * ![game_screen](assets/game_screen.png)
+        * Game Over Screen
+          * ![game_over_screen](assets/game_over_screen.png)
 
 ## Program Design *(Backend Specialist)*
 * Non-Standard libraries 
