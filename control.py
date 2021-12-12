@@ -15,7 +15,9 @@ class Controller:
         pacman = player.Pacman
         ghosts = enemies.Ghosts
         self.state = "Initialization"
-        self.screen = pygame.display.set_mode((600, 700))
+        self.screen = pygame.display.set_mode((610, 670))
+        self.maze_width = 560 // 28
+        self.maze_height = 620 // 30
         self.running = True
         pygame.init()
         self.background = pygame.image.load('maze.png')
@@ -30,8 +32,8 @@ class Controller:
         '''Opens the boundaries.txt file and creates the walls list with coordinates
         of the walls by storing it as a vector. Also makes the box_width and box_height
         for when a grid is made.'''
-        self.box_width = 600 // 30
-        self.box_height = 700 // 28
+        self.box_width = 610 // 28
+        self.box_height = 670 // 30
         self.walls = []
         self.coins = []
         self.ghosts = []
@@ -50,12 +52,12 @@ class Controller:
 
     def drawMaze(self):
         ''' Creates the maze or grid using the box_width and box_height.'''
-        for i in range(config.SCREEN_WIDTH // self.box_width):
-            pygame.draw.line(self.background, config.WHITE, (i * self.box_width, 0),
-                             (i * self.box_width, config.SCREEN_HEIGHT))
-        for i in range(config.SCREEN_HEIGHT // self.box_height):
-            pygame.draw.line(self.background, config.WHITE, (0, i * self.box_height),
-                             (config.SCREEN_WIDTH, i * self.box_height))
+        for i in range(config.SCREEN_WIDTH // self.maze_width):
+            pygame.draw.line(self.background, config.WHITE, (i * self.maze_width, 0),
+                             (i * self.maze_width, config.SCREEN_HEIGHT))
+        for i in range(config.SCREEN_HEIGHT // self.maze_height):
+            pygame.draw.line(self.background, config.WHITE, (0, i * self.maze_height),
+                             (config.SCREEN_WIDTH, i * self.maze_height))
 
     def makeEnemies(self):
         for idx, pos in enumerate(self.ghostpositions):
@@ -104,7 +106,7 @@ class Controller:
     def menuDraw(self):
         ''' Creates text that says "PUSH SPACE BAR" in the center of the screen.'''
         self.type('PUSH SPACE BAR', self.screen, [
-            800 // 2, 600 // 2 - 50], 15, (170, 132, 58), "arial black", centered=True)
+            800 // 2 - 170, 600 // 2 - 50], 15, (170, 132, 58), "arial black", centered=True)
         pygame.display.update()
 
     def type(self, characters, screen, pos, size, color, font_name, centered=True):
@@ -139,8 +141,8 @@ class Controller:
     def drawCoins(self):
         for coins in self.coins:
             pygame.draw.circle(self.screen, (124, 123, 7),
-                               (int(coins.x * self.box_width) + self.box_width // 2 + config.TOP_BOTTOM_BUFFER // 2,
-                                int(coins.y * self.box_height) + self.box_height // 2 + config.TOP_BOTTOM_BUFFER // 2),
+                               (int(coins.x * self.maze_width) + self.maze_width // 2 + config.TOP_BOTTOM_BUFFER // 2,
+                                int(coins.y * self.maze_height) + self.maze_height // 2 + config.TOP_BOTTOM_BUFFER // 2),
                                5)
 
     def gameUpdate(self):
