@@ -23,10 +23,10 @@ class Controller:
         self.background = pygame.image.load('maze.png')
         self.loading()
         self.pacmanposition = vec(21, 4)
-        self.ghosts = []
-        self.ghostpositions = []
+        self.ghosts = enemies.Ghosts
+        self.ghostpositions = vec(15, 15)
+        self.ghost = ghosts(self, self.ghostpositions)
         self.pacman = pacman(self, self.pacmanposition)
-        self.make_Ghosts()
 
     def loading(self):
         '''Opens the boundaries.txt file and creates the walls list with coordinates
@@ -46,22 +46,18 @@ class Controller:
                     elif char == "C":
                         self.coins.append(vec(xidx, yidx))
 
-    def make_Ghosts(self):
-        for idx, pos in enumerate(self.ghostpositions):
-            self.ghosts.append(enemies.Ghosts(self, vec(pos), idx))
-
     def drawMaze(self):
         ''' Creates the maze or grid using the box_width and box_height.'''
         for i in range(config.SCREEN_WIDTH // self.maze_width):
             pygame.draw.line(self.background, config.WHITE, (i * self.maze_width, 0),
-                             (i * self.maze_width, config.SCREEN_HEIGHT))
-        for i in range(config.SCREEN_HEIGHT // self.maze_height):
-            pygame.draw.line(self.background, config.WHITE, (0, i * self.maze_height),
-                             (config.SCREEN_WIDTH, i * self.maze_height))
+                             (i * self.maze_height, config.SCREEN_HEIGHT))
+        for i in range(config.SCREEN_HEIGHT // self.box_height):
+            pygame.draw.line(self.background, config.WHITE, (0, i * self.box_height),
+                             (config.SCREEN_WIDTH, i * self.box_height))
 
-    def makeEnemies(self):
+    '''def makeEnemies(self):
         for idx, pos in enumerate(self.ghostpositions):
-            self.ghosts.append(enemies.Ghosts(self, vec(pos), idx))
+            self.ghosts.append(enemies.Ghosts(self, vec(pos), idx))'''
 
     def reset(self):
         '''Resets the game once Pacman touches a Ghost.'''
@@ -148,12 +144,12 @@ class Controller:
     def gameUpdate(self):
         '''Updates the movement of Pacman'''
         self.pacman.update()
-        for ghost in self.ghosts:
-            ghost.update()
+        # for i in range(4):
+        # self.ghost.update()
+        self.ghost.update()
         '''Checks if the ghost coordinates is equal to Pacman's coordinates, if so, Pacman loses a life.'''
-        for ghost in self.ghosts:
-            if ghost.coordinates == self.pacman.coordinates:
-                self.loseLife()
+        if self.pacmanposition == self.ghostpositions:
+            self.loseLife()
 
     def gameDraw(self):
         '''Draws Pacman and the game screen'''
@@ -163,8 +159,9 @@ class Controller:
         self.drawCoins()
         self.drawText('SCORE: {}'.format(self.pacman.score),
                       self.screen, [60, 0], 18, config.WHITE, config.FONT)
-        for ghost in self.ghosts:
-            ghost.draw()
+        # for i in range(4):
+        # self.ghost.draw()
+        self.ghost.draw()
         pygame.display.update()
 
     def loseCondition(self):
