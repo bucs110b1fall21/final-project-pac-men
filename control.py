@@ -77,7 +77,7 @@ class Controller:
             if self.state == "Initialization":
                 self.menuEvents()
                 self.menuDraw()
-                self.drawMaze()
+                #self.drawMaze()
             elif self.state == "In-Game":
                 self.gameEvents()
                 self.gameUpdate()
@@ -159,15 +159,9 @@ class Controller:
         self.drawCoins()
         self.drawText('SCORE: {}'.format(self.pacman.score),
                       self.screen, [60, 0], 18, config.WHITE, config.FONT)
-        # for i in range(4):
-        # self.ghost.draw()
+
         self.ghost.draw()
         pygame.display.update()
-
-    def loseCondition(self):
-        '''Initializes the Game-Over state of the game.'''
-        if self.pacman.lives == 0:
-            self.state = "Game-Over"
 
     def loseLife(self):
         self.pacman.lives -= 1
@@ -181,5 +175,5 @@ class Controller:
                 self.running = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 self.reset()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESPACE:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 self.running = False
