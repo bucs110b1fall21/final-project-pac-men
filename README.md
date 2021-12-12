@@ -26,16 +26,13 @@
 
 * Start Screen
   * ![start_screen](assets/start_screen.png)
-  * This is the start screen of the Pacman game. It displays the text, "PUSH SPACE BAR" which instructs the user to press space to transition
-  * to the game screen and begin the game. 
+  * This is the start screen of the Pacman game. It displays the text, "PUSH SPACE BAR" which instructs the user to press space to transition to the game screen and begin the game. 
     * Game Screen
       * ![game_screen](assets/game_screen.png)
-      * This is the game screen where it displays the background, Pacman sprite, ghost sprite, and the coins. There is also a score count on the
-      * top left of the screen which counts the coins Pacman has eaten. 
+      * This is the game screen where it displays the background, Pacman sprite, ghost sprite, and the coins. There is also a score count on the top left of the screen which counts the coins Pacman has eaten. 
         * Game Over Screen
-          * ![game_over_screen](assets/game_over_screen.png)
-          * This is the game over screen where it displays "GAME OVER" and the game ends. To exit, you can press ESC and to play again, you restart
-          * the program.
+            * ![game_over_screen](assets/game_over_screen.png)
+            * This is the game over screen where it displays "GAME OVER" and the game ends. To exit, you can press ESC and to play again, you restart the program.
 
 ## Program Design *(Backend Specialist)*
 * Non-Standard libraries 
