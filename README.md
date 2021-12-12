@@ -1,8 +1,8 @@
 :warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 # CS110 Project Proposal
-# << Project Title >>
+# << Pac-Men >>
 ## CS 110 Final Project
-### << 1, 2021 >>
+### << November 28, 2021 >>
 ### [Assignment Description](https://docs.google.com/document/d/1H4R6yLL7som1lglyXWZ04RvTp_RvRFCCBn6sqv-82ps/edit#)
 
 << [https://github.com/bucs110b1fall21/final-project-pac-men](#) >>
@@ -15,7 +15,7 @@
 ***
 
 ## Project Description *(Software Lead)*
-<< Give an overview of your project >>
+<< Our project is a recreation of pacman. Pacman is a game where there is a character, pacman and his goal is to eat all the pellets before the ghost catches him.>>
 
 ***    
 
@@ -64,26 +64,31 @@ The Project is broken down into the following file structure:
 ## Tasks and Responsibilities *(Software Lead)*
 * You must outline the team member roles and who was responsible for each class/method, both individual and collaborative.
 
-### Software Lead - << name >>
+### Software Lead - << Jason Lin >>
 
-<< Worked as integration specialist by... >>
+<< Worked as integration specialist by developing statrategic procedures and upgrades. >>
 
-### Front End Specialist - << name >>
+### Front End Specialist - << Axin Li >>
 
-<< Front-end lead conducted significant research on... >>
+<< Front-end lead conducted significant research on how to make sure the presentation of the project looked nice. >>
 
-### Back End Specialist - << name >>
+### Back End Specialist - << Nicholas Tavormina >>
 
-<< The back end specialist... >>
+<< The back end specialist made sure that the code was compressed and followed our project description. >>
 
 ## Testing *(Software Lead)*
-* << Describe your testing strategy for your project. >>
-    * << Example >>
+* << One testing strategy we used was to run the code, and whereever theres an error, we would go from there>>
+    * << TypeError on line 12. We would go to line 12 and try to fix the error. >>
 
 * Your ATP
 
 | Step                  | Procedure     | Expected Results  | Actual Results |
 | ----------------------|:-------------:| -----------------:| -------------- |
-|  1  | Run Counter Program  | GUI window appears with count = 0  |          |
-|  2  | click count button  | display changes to count = 1 |                 |
-etc...
+|  1  | Run Counter Program  | G UI window appears with count = 0| works fine|
+|  2  | click count button  | display changes to count = 1  |starts with count = 1|
+|  3  | start game        |press space bar|  runs the code |
+|  4  | Play game|use arrow keys to move|pacman moves around with the arrow keys|
+|  5  | Collecting pellets | pellets should disappear when eaten| it does! |
+|  6  | Ghost follows pacman| if ghost touches pacman he dies| pacman does die|
+
+ 

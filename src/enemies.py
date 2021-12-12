@@ -5,7 +5,7 @@ from pygame.math import Vector2 as vec
 
 
 class Ghosts:
-    def __init__(self, controller, coordinates, identity):
+    def __init__(self, controller, coordinates):
         """
         Ghost class constructor. 
         Controller (class) Controller class is called. Used to work with the controller for drawing on the screen, grabbing screen data, and acessing the boundaries layout to be used with the player
@@ -16,23 +16,22 @@ class Ghosts:
         self.coordinates = coordinates
         self.pixel_position = self.getPosition()
         self.direction = vec(0,0)
-        self.color = self.setColor()
-        self.identity = identity
+        #self.color = self.setColor()
         self.speed = SPEED
     
     def draw(self):
         """
         Method that draws an enemy on the screen with a designated color, specified pixel position, and width.
         """
-        pygame.draw.circle(self.controller.screen, self.color, (int(self.pixel_position.x), int(self.pixel_position.y)), WIDTH)
+        pygame.draw.circle(self.controller.screen, (190, 194, 15), (int(self.pixel_position.x), int(self.pixel_position.y)), WIDTH)
 
     def update(self):
         """
         Handles movement updates. Checks 
         """
         self.pixel_position += self.direction
-        if self.Centered():
-            self.randomMovement()
+        #if self.Centered():
+        self.randomMovement()
 
     def Centered(self):
         """

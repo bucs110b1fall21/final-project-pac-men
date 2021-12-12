@@ -35,7 +35,7 @@ class Pacman:
         """
         if self.noCollision:
             self.pixel_position += self.direction * SPEED
-        if self.time_to_move():
+        if self.centered():
             if self.queued_direction != None:
                 self.direction = self.queued_direction
             self.freetoMove = self.noCollision()
@@ -54,14 +54,6 @@ class Pacman:
         Return : Vector value to be used as the object's pixel position
         """
         return vec(self.coordinates.x * self.Controller.box_width, self.coordinates.y * self.Controller.box_height)
-
-    def time_to_move(self):
-        if int(self.coordinates.x + TOP_BOTTOM_BUFFER // 2) % self.Controller.box_width == 0:
-            if self.direction == vec(1, 0) or self.direction == vec(-1, 0) or self.direction == vec(0, 0):
-                return True
-        if int(self.coordinates.y + TOP_BOTTOM_BUFFER // 2) % self.Controller.box_height == 0:
-            if self.direction == vec(1, 0) or self.direction == vec(-1, 0) or self.direction == vec(0, 0):
-                return True
 
     def move(self, direction):
         """
