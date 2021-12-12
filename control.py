@@ -24,26 +24,21 @@ class Controller:
         self.loading()
         self.pacmanposition = vec(21, 4)
         self.ghosts = enemies.Ghosts
-        self.ghostpositions = vec(15, 15)
-        self.ghost = ghosts(self, self.ghostpositions)
+        self.ghost = ghosts(self, vec(15,15))
         self.pacman = pacman(self, self.pacmanposition)
 
     def loading(self):
         '''Opens the boundaries.txt file and creates the walls list with coordinates
         of the walls by storing it as a vector. Also makes the box_width and box_height
         for when a grid is made.'''
-        self.box_width = 610 // 28
-        self.box_height = 670 // 30
-        self.walls = []
         self.coins = []
-        self.ghosts = []
         self.boundaries = []
         with open("boundaries.txt", 'r') as file:
             for yidx, line in enumerate(file):
                 for xidx, char in enumerate(line):
                     if char == "1":
-                        self.walls.append(vec(xidx, yidx))
-                    elif char == "C":
+                        self.boundaries.append(vec(xidx, yidx))
+                    if char == "C":
                         self.coins.append(vec(xidx, yidx))
 
     def drawMaze(self):
@@ -62,7 +57,6 @@ class Controller:
             if self.state == "Initialization":
                 self.menuEvents()
                 self.menuDraw()
-                # self.drawMaze()
             elif self.state == "In-Game":
                 self.gameEvents()
                 self.gameUpdate()
@@ -80,8 +74,6 @@ class Controller:
                 self.running = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 self.state = "In-Game"
-                print("space")
-                print(self.state)
 
     def menuDraw(self):
         ''' Creates text that says "PUSH SPACE BAR" in the center of the screen.'''
@@ -124,7 +116,9 @@ class Controller:
         self.ghost.update()
         '''Checks if the ghost coordinates is equal to Pacman's coordinates, if so, Pacman loses a life and ends the game state. 
         This starts the 'Game-Over' state.'''
-        if self.pacmanposition == self.ghostpositions:
+        print(self.ghost.pixel_position)
+        print(self.pacman.pixel_position)
+        if self.pacman.pixel_position == self.ghost.pixel_position:
             self.loseLife()
 
     def gameDraw(self):

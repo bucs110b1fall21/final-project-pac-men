@@ -27,33 +27,30 @@ class Pacman:
         Method that draws pacman on the screen with a yellow color, specified pixel position, and width.
         """
         pygame.draw.circle(self.Controller.screen, PACMAN_COLOR,
-                           (int(self.pixel_position.x), int(self.pixel_position.y)), WIDTH)
+                           (int(self.pixel_position.x + 8), int(self.pixel_position.y)), WIDTH)
 
     def update(self):
         """
         Update method. Handles all the movement operations for pacman. Also sets the relationship between a grid positioning system and pixel positioning system. Also eats a coin
         """
-        if self.noCollision:
-            self.pixel_position += self.direction * SPEED
-        if self.centered():
-            if self.queued_direction != None:
-                self.direction = self.queued_direction
-            self.freetoMove = self.noCollision()
+        if self.checkCollision():
+            self.pixel_position += self.direction * SPEED 
 
         if self.coin():
             self.eat()
+            self.score += 1
 
-        self.coordinates.x = (self.pixel_position.x +
-                              self.Controller.box_width // 2) // self.Controller.box_width + 1
-        self.coordinates.y = (self.pixel_position.y +
-                              self.Controller.box_height // 2) // self.Controller.box_height + 1
+        self.coordinates.x = (self.pixel_position.x - EMPTY_SPACE +
+                            self.Controller.maze_width//2)//self.Controller.maze_width+1
+        self.coordinates.y = (self.pixel_position.y - EMPTY_SPACE +
+                            self.Controller.maze_height//2)//self.Controller.maze_height+1
 
     def getPosition(self):
         """
         Method that calculates a pixel position vector value given an object grid-based coordinates. Uses the "boxes" of the screen (grid).
         Return : Vector value to be used as the object's pixel position
         """
-        return vec(self.coordinates.x * self.Controller.box_width, self.coordinates.y * self.Controller.box_height)
+        return vec(self.coordinates.x * self.Controller.maze_width, self.coordinates.y * self.Controller.maze_height)
 
     def move(self, direction):
         """
@@ -67,8 +64,7 @@ class Pacman:
         return: (boolean) True/False statement deciding whether or not pacman is one a coin.
         """
         if self.coordinates in self.Controller.coins:
-            if self.centered == True:
-                return True
+            return True
 
     def eat(self):
         """
@@ -76,26 +72,27 @@ class Pacman:
         """
         self.Controller.coins.remove(self.coordinates)
 
-    def noCollision(self):
+    def checkCollision(self):
         """
         Method that checks for collison by comparing the player's grid position to the boundry position from boundaries.txt
         return: (boolean) True/False statement. False if there is a collision, true if there isn't one.
         """
-        for boundaries in self.Controller.boundaries:
-            if vec(self.coordinates + self.direction) == boundaries:
-                print("False")
-                return False
-        return True
+        queuedposition = vec(self.coordinates.x + self.direction.x, self.coordinates.y + self.direction.y)
+        if queuedposition not in self.Controller.boundaries:
+            return True
+        else: 
+            return False
+                
 
-    def centered(self):
-        """
+    """def centered(self):
+        
         Method that checks if the player's pixel position is in the middle of the "grid" by comparing it to the "box" size. Does this for both the x-axis and y-axis. Prevents pac-man from moving mid box.
         return: (boolean) True/False statement. Returns true if the player is centered within the box/grid.
-        """
+        
         if int(self.pixel_position.x) % self.Controller.box_width == 0:
             if self.direction == vec(1, 0) or self.direction == (-1, 0) or self.direction == vec(0, 0):
                 return True
         if int(self.pixel_position.y) % self.Controller.box_height == 0:
             if self.direction == vec(1, 0) or self.direction == (-1, 0) or self.direction == vec(0, 0):
                 return True
-        return False
+        return False"""

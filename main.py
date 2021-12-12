@@ -4,6 +4,4 @@ def main():
     game = Controller()
     game.mainloop()
 
-main()
-
-    
+main() 

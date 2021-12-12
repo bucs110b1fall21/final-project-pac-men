@@ -16,7 +16,6 @@ class Ghosts:
         self.coordinates = coordinates
         self.pixel_position = self.getPosition()
         self.direction = vec(0,0)
-        #self.color = self.setColor()
         self.speed = SPEED
     
     def draw(self):
@@ -29,36 +28,14 @@ class Ghosts:
         """
         Handles movement updates. Checks 
         """
-        self.pixel_position += self.direction
-        #if self.Centered():
+        self.coordinates.x = (self.pixel_position.x - EMPTY_SPACE +
+                            self.controller.maze_width//2)//self.controller.maze_width+1
+        self.coordinates.y = (self.pixel_position.y - EMPTY_SPACE +
+                            self.controller.maze_height//2)//self.controller.maze_height+1
+
+        self.coordinates += self.direction
         self.randomMovement()
 
-    def Centered(self):
-        """
-        Method that checks if the enemies's pixel position is in the middle of the "grid" by comparing it to the "box" size. Does this for both the x-axis and y-axis. Prevents enemies from moving mid box.
-        return: (boolean) True/False statement. Returns true if the enemy is centered within the box/grid.
-        """
-        if int(self.pixel_position) % self.controller.box_width == 0:
-            if self.direction ==  vec(1,0) or self.direction == (-1,0) or self.direction == vec(0,0):
-                return True
-        if int(self.pixel_position.y) % self.controller.box_height == 0:
-            if self.direction ==  vec(1,0) or self.direction == (-1,0) or self.direction == vec(0,0):
-               return True
-        return False
-
-    def setColor(self):
-        """
-        Method that returns a color based on the enemy's identity.
-        return (color) color.
-        """
-        if self.identity == 4:
-            return (100, 200, 30)
-        if self.identity == 3:
-            return (75, 50, 84)
-        if self.identity == 2:
-            return (200, 100, 3)
-        if self.identity == 1:
-            return (34, 159, 103)
 
     def randomMovement(self):
         """
@@ -80,13 +57,42 @@ class Ghosts:
             xdirection, ydirection = -1, 0
         else:
             xdirection, ydirection = 0, -1
-        queuedposition = vec(self.coordinates.x + xdirection, self.coordinates.y + ydirection)
-        if queuedposition not in self.controller.boundaries:
-            return vec(xdirection, ydirection)
+        return vec(xdirection, ydirection)
 
     def getPosition(self):
         """
         Method that calculates a pixel position vector value given an object grid-based coordinates. Uses the "boxes" of the screen (grid).
         Return : Vector value to be used as the object's pixel position
         """
-        return vec(self.coordinates.x*self.controller.box_width, self.coordinates.y*self.controller.box_height)
+        return vec(self.coordinates.x*self.controller.maze_width, self.coordinates.y*self.controller.maze_height)
+
+"""
+    def Centered(self):
+        
+        Method that checks if the enemies's pixel position is in the middle of the "grid" by comparing it to the "box" size. Does this for both the x-axis and y-axis. Prevents enemies from moving mid box.
+        return: (boolean) True/False statement. Returns true if the enemy is centered within the box/grid.
+        
+        if int(self.pixel_position) % self.controller.box_width == 0:
+            if self.direction ==  vec(1,0) or self.direction == (-1,0) or self.direction == vec(0,0):
+                return True
+        if int(self.pixel_position.y) % self.controller.box_height == 0:
+            if self.direction ==  vec(1,0) or self.direction == (-1,0) or self.direction == vec(0,0):
+               return True
+        return False
+"""
+
+""" def setColor(self):
+        
+        Method that returns a color based on the enemy's identity.
+        return (color) color.
+        
+        if self.identity == 4:
+            return (100, 200, 30)
+        if self.identity == 3:
+            return (75, 50, 84)
+        if self.identity == 2:
+            return (200, 100, 3)
+        if self.identity == 1:
+            return (34, 159, 103)
+"""
+
